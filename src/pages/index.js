@@ -1,119 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { render } from "react-dom";
+import React, { useState, useEffect } from "react"
+
+import topics from "../core/topics"
+import letters from "../core/letters"
+
+import Card from "../components/Card"
+import Scores from "../components/Scores"
+
+import GameOver from "./game-over"
+import MainMenu from "./main-menu"
 
 import "./main.css"
-import topics from "./topics.json"
 
-const pickRandom = (options) => {
-  return options[Math.floor(Math.random() * options.length)]
-}
-
-const pickRandomLetter = () => {
-  const alphabet = "aaabcdeefghhiijjkkklllmmnnnnoopprrsssttuuvvwyäö";
-  return pickRandom(alphabet).toUpperCase();
-};
-
-const pickRandomTopic = () => {
-  return pickRandom(topics)
-}
-
-const Card = ({ letter, topic, waitTime, round, totalRounds }) => {
-  const [display, setDisplay] = useState('-')
-
-  const [currentWaitStart, setCurrentWaitStart] = useState(new Date())
-  const [progress, setProgress] = useState(waitTime)
-
-  useEffect(() => {
-    setDisplay('-')
-    setCurrentWaitStart(new Date())
-    setTimeout(() => {
-      setDisplay(letter)
-    }, waitTime)
-  }, [letter])
-
-  useEffect(() => {
-    setTimeout(() => {
-      const now = new Date()
-      const elapsed = now.getTime() - currentWaitStart.getTime()
-      const seconds = elapsed;
-      setProgress((1.0 - seconds / waitTime) * waitTime)
-    }, 1)
-  })
-
-  return (
-    <div className="card">
-      <h5>Aihe ({round}/{totalRounds}):</h5>
-      <h3>{topic}</h3>
-      <h1 className="letter">{display}</h1>
-      <progress value={progress} max={waitTime}> 32% </progress>
-    </div>
-  );
-};
+// TODO: Refactor components
+// TODO: Enable ESlint
+// TODO: Consider TypeScript
+// TODO: Consider Redux for the game state
+// TODO: Consider React Router for the game state
 
 const createUser = (name) => ({
   name,
   score: 0
 })
 
-const Users = ({users, setUsers, scoreAddition}) => {
-
-  const addScore = (user) => {
-    const updated = users.map((u) => {
-      if (u.name === user.name) return {
-        ...u,
-        score: u.score + scoreAddition
-      }
-      return u
-    })
-    setUsers(updated)
-  }
-
-  return (
-    <div className="usersParent">
-      <h4>Anna pisteitä (jaossa {scoreAddition})</h4>
-      <div className="users">
-        {
-          users.map((user) => (
-            <button onClick={() => addScore(user)}>{user.name} ({user.score})</button>    
-          ))
-        }
-      </div>
-    </div>
-  )
-}
-
-const GameOver = ({users, newGame, mainMenu}) => {
-  const sortedUsers = users.concat().sort((a, b) => {
-    if (a.score < b.score) return 1
-    else if (a.score > b.score) return -1
-    return 0
-  })
-
-  return (
-    <div>
-      <ul>
-        {
-          sortedUsers.map((user) => (
-            <li>{user.name} - {user.score}</li>
-          ))
-        }
-      </ul>
-      <button onClick={newGame}>Uusi peli</button>
-      <button onClick={mainMenu}>Päävalikko</button>
-    </div>
-  )
-}
-
 // TODO:
 // Lisää pisteitä pottiin Uusi kirjain -napista
 
-const MainMenu = () => {
-
-}
-
-const IndexPage = () => {
-  const [letter, setLetter] = useState(pickRandomLetter());
-  const [topic, setTopic] = useState(pickRandomTopic());
+const Index = () => {
+  const [letter, setLetter] = useState(letters.chooseRandom());
+  const [topic, setTopic] = useState(topics.chooseRandom());
 
   const shortWait = 1000
   const longWait = 3000
@@ -144,15 +58,15 @@ const IndexPage = () => {
       setRound(round + 1)
     setWaitTime(longWait)
     setScoreAddition(1)
-    setLetter(pickRandomLetter());
-    setTopic(pickRandomTopic())
+    setLetter(letters.chooseRandom());
+    setTopic(topics.chooseRandom())
     disabledNewLetter(longWait)
   };
 
   const newLetter = () => {
     let next = letter
     while (next == letter) {
-      next = pickRandomLetter()
+      next = letters.chooseRandom()
     }
     setWaitTime(shortWait)
     setLetter(next);
@@ -211,7 +125,7 @@ const IndexPage = () => {
       <button onClick={newLetter} disabled={!newLetterEnabled}>Uusi kirjain</button>
       { continueButton }
 
-      <Users 
+      <Scores 
         users={users} 
         setUsers={setUsers} 
         scoreAddition={scoreAddition}
@@ -220,4 +134,4 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage
+export default Index
