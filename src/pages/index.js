@@ -20,9 +20,6 @@ const createUser = (name) => ({
     score: 0,
 });
 
-// TODO:
-// Lisää pisteitä pottiin Uusi kirjain -napista
-
 const Index = () => {
     const [letter, setLetter] = useState(letters.chooseRandom());
     const [topic, setTopic] = useState(topics.chooseRandom());
