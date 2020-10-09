@@ -1,8 +1,8 @@
-import chooseRandom from "../util/choose-random"
+import chooseRandom from '../util/choose-random';
 
 export default {
     chooseRandom: () => {
-        const alphabet = "aaabcdeefghhiijjkkklllmmnnnnoopprrsssttuuvvwyäö";
+        const alphabet = 'aaabcdeefghhiijjkkklllmmnnnnoopprrsssttuuvvwyäö';
         return chooseRandom(alphabet).toUpperCase();
-    }
-}
+    },
+};

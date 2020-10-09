@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react';
 
-const Scores = ({users, setUsers, scoreAddition}) => {
-
+const Scores = ({ users, setUsers, scoreAddition }) => {
     const addScore = (user) => {
-      const updated = users.map((u) => {
-        if (u.name === user.name) return {
-          ...u,
-          score: u.score + scoreAddition
-        }
-        return u
-      })
-      setUsers(updated)
-    }
-  
-    return (
-      <div className="usersParent">
-        <h4>Anna pisteitä (jaossa {scoreAddition})</h4>
-        <div className="users">
-          {
-            users.map((user) => (
-              <button onClick={() => addScore(user)}>{user.name} ({user.score})</button>    
-            ))
-          }
-        </div>
-      </div>
-    )
-}
+        const updated = users.map((u) => {
+            if (u.name === user.name) {
+                return {
+                    ...u,
+                    score: u.score + scoreAddition,
+                };
+            }
+            return u;
+        });
+        setUsers(updated);
+    };
 
-export default Scores
+    return (
+        <div className="usersParent">
+            <h4>Anna pisteitä (jaossa {scoreAddition})</h4>
+            <div className="users">
+                {
+                    users.map((user) => (
+                        <button type="button" onClick={() => addScore(user)}>{user.name} ({user.score})</button>
+                    ))
+                }
+            </div>
+        </div>
+    );
+};
+
+export default Scores;

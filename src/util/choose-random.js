@@ -1,5 +1,3 @@
-const chooseRandom = (options) => {
-    return options[Math.floor(Math.random() * options.length)]
-}
+const chooseRandom = (options) => options[Math.floor(Math.random() * options.length)];
 
-export default chooseRandom
+export default chooseRandom;
