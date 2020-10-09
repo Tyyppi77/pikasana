@@ -1,6 +1,14 @@
 import React from 'react';
 
-const GameOver = ({ users, newGame, mainMenu }) => {
+import User from '../core/user';
+
+type Props = {
+    users: Array<User>,
+    newGame: () => void,
+    mainMenu: () => void,
+};
+
+const GameOver: React.FC<Props> = ({ users, newGame, mainMenu } : Props) => {
     const sortedUsers = users.concat().sort((a, b) => {
         if (a.score < b.score) return 1;
         if (a.score > b.score) return -1;

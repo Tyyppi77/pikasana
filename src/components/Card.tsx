@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-const Card = ({
+type Props = {
+    letter: string,
+    topic: string,
+    waitTime: number,
+    round: number,
+    totalRounds: number
+};
+
+const Card: React.FC<Props> = ({
     letter, topic, waitTime, round, totalRounds,
-}) => {
+}: Props) => {
     const [display, setDisplay] = useState('-');
 
     const [currentWaitStart, setCurrentWaitStart] = useState(new Date());

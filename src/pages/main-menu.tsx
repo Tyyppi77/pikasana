@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MainMenu = () => {
+const MainMenu : React.FC = () => {
     const text = 'Asd';
     return <>{text}</>;
 };

@@ -9,54 +9,57 @@ import Scores from '../components/Scores';
 import GameOver from './game-over';
 import MainMenu from './main-menu';
 
+import User from '../core/user';
+
 import './main.css';
 
-// TODO: Consider TypeScript
 // TODO: Consider Redux for the game state
 // TODO: Consider React Router for the game state
 
-const createUser = (name) => ({
-    name,
-    score: 0,
-});
+type Time = number;
+type State = 'game' | 'over' | 'main';
 
-const Index = () => {
+const Index: React.FC = () => {
     const [letter, setLetter] = useState(letters.chooseRandom());
     const [topic, setTopic] = useState(topics.chooseRandom());
 
-    const shortWait = 1000;
-    const longWait = 3000;
+    const shortWait: Time = 1000;
+    const longWait: Time = 3000;
 
-    const [waitTime, setWaitTime] = useState(longWait);
+    const [waitTime, setWaitTime] = useState<Time>(longWait);
 
     const [users, setUsers] = useState([
-        createUser('Juho'),
-        createUser('O-S'),
-        createUser('Äiti'),
-        createUser('Isi'),
+        new User('Juho'),
+        new User('O-S'),
+        new User('Äiti'),
+        new User('Isi'),
     ]);
 
     const totalRounds = 40;
     const [round, setRound] = useState(0);
 
-    const [state, setState] = useState('game');
+    const [state, setState] = useState<State>('game');
 
     const [scoreAddition, setScoreAddition] = useState(1);
 
     const [newLetterEnabled, setNewLetterEnabled] = useState(true);
 
-    const disabledNewLetter = (time) => {
+    const disabledNewLetter = (time: Time) => {
         setNewLetterEnabled(false);
         setTimeout(() => setNewLetterEnabled(true), time);
     };
 
-    const newTopic = (updateRound = false) => {
+    const createNewTopic = (updateRound = false) => {
         if (updateRound) setRound(round + 1);
         setWaitTime(longWait);
         setScoreAddition(1);
         setLetter(letters.chooseRandom());
         setTopic(topics.chooseRandom());
         disabledNewLetter(longWait);
+    };
+
+    const newTopic = () => {
+        createNewTopic();
     };
 
     const newLetter = () => {
@@ -77,7 +80,7 @@ const Index = () => {
     const newGame = () => {
         setRound(0);
         setState('game');
-        newTopic(false);
+        createNewTopic(false);
         setUsers(users.map((u) => ({
             ...u,
             score: 0,

@@ -1,7 +1,15 @@
 import React from 'react';
 
-const Scores = ({ users, setUsers, scoreAddition }) => {
-    const addScore = (user) => {
+import User from '../core/user';
+
+type Props = {
+    users: Array<User>,
+    setUsers: (users: Array<User>) => void,
+    scoreAddition: number,
+};
+
+const Scores: React.FC<Props> = ({ users, setUsers, scoreAddition } : Props) => {
+    const addScore = (user: User) => {
         const updated = users.map((u) => {
             if (u.name === user.name) {
                 return {
