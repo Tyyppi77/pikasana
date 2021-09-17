@@ -52,6 +52,16 @@ button {
     font-weight: bold;
     min-width: 40vh;
     box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s;
+    transform: scale(1.0);
+}
+
+button:disabled {
+    opacity: 0.1;
+}
+
+button:active {
+    transform: scale(1.1);
 }
 
 .highlight {
@@ -102,7 +112,7 @@ button {
     opacity: 0.2;
 }
 
-.launch .players {
+.players {
     font-size: 0.25em;
     width: 80%;
     margin: 0 auto;
@@ -134,11 +144,11 @@ button {
     font-weight: normal;
 }
 
-.launch .players .players-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+.players-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
     color: #576cf5;
     font-size: 0.75em;
 }
@@ -152,11 +162,14 @@ button {
     text-align: center;
     box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
     min-width: 0;
-    text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
-    font-weight: normal;
+    font-weight: normal !important;
     font-size: 1em;
+
+    font-weight: bold;
+    margin: 10px;
+    height: 8vh;
+    flex: 0 0 calc(25% - 20px);
 }
 
 .round-info {
@@ -205,19 +218,19 @@ button {
 }
 
 .round-info .round-bottom {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr repeat(1, auto) 1fr;
+    grid-column-gap: 5px;
+    justify-items: center;
 
-    min-width: 70vw;
+    min-width: 100vw;
+
+    padding-bottom: 0.5em;
 }
 
-.round-bottom button {
+.round-bottom .link-button {
     font-size: 0.7em;
-    width: auto;
     min-width: 0vw;
-    margin: 0 auto;
     padding: 0.5em;
     background: none;
     color: white;
@@ -225,6 +238,20 @@ button {
     box-shadow: none;
     text-decoration: underline;
     font-weight: normal;
+}
+
+.round-bottom button:nth-child(1) {
+    grid-column-start: 2;
+}
+
+.new-topic {
+    margin-left: auto;
+    font-size: 0.7em;
+    width: auto;
+    min-width: 0;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .round-bottom button:disabled {
@@ -252,36 +279,17 @@ button {
 }
 
 .game .players {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
     background-color: rgba(0, 0, 0, 0.1);
-    width: 100vw;
 
-    margin-top: auto;
-
+    padding: 0;
     padding-bottom: 1em;
+
+    width: 100vw;
+    margin: auto auto;
 }
 
 .game .players header {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     opacity: 0.8;
-}
-
-.game .players-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-    color: #576cf5;
-    font-size: 0.75em;
-}
-
-.game .player {
-    font-weight: bold;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
 }

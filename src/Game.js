@@ -1,10 +1,11 @@
 import React, { useState, useEffect, } from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import { nextTopic, requestNewLetter, revealNewLetter } from "./gameSlice"
+import { nextTopic, requestNewLetter, revealNewLetter, markPlayerAsScored } from "./gameSlice"
+import { awardScore } from "./playersSlice"
 
 import { useSelector, useDispatch } from 'react-redux'
 
-const RoundInfo = ({ topic, round, totalRounds }) => {
+const RoundInfo = () => {
     const game = useSelector(state => state.game)
 
     const dispatch = useDispatch()
@@ -17,13 +18,17 @@ const RoundInfo = ({ topic, round, totalRounds }) => {
         dispatch(requestNewLetter())
     }
 
+    const nextTopicCallback = () => {
+        dispatch(nextTopic())
+    }
+
     const counting = game.currentLetter === '-'
   
     return (
         <div className="round-info">
             <span className="topic-parent">
-                <h5 className="topic-title">Aihe ({round}/{totalRounds}):</h5>
-                <h3 className="topic">{topic}</h3>
+                <h5 className="topic-title">Aihe ({game.currentRound + 1}/{game.totalRounds}):</h5>
+                <h3 className="topic">{game.topics[game.currentRound]}</h3>
             </span>
             <div className="letter-wrapper">
                 {
@@ -47,20 +52,29 @@ const RoundInfo = ({ topic, round, totalRounds }) => {
                 }
             </div>
 
-            
-
             <span className="round-bottom">
-                <button type="button" onClick={nextLetterCallback} disabled={counting}>Uusi kirjain</button>
+                <button type="button" onClick={nextLetterCallback} disabled={counting || game.scoredPlayers.length > 0} className="link-button">Uusi kirjain</button>
+                <button type="button" onClick={nextTopicCallback} disabled={counting} className="new-topic">Uusi aihe</button>
             </span>
         </div>
     );
 };
 
 const Player = ({ player }) => {
+    const game = useSelector(state => state.game)
+    const dispatch = useDispatch()
+
+    const clickCallback = () => {
+        dispatch(awardScore({ name: player.name, addition: game.scoreAddition }))
+        dispatch(markPlayerAsScored(player.name))
+    }
+
+    const scored = game.scoredPlayers.find(p => p === player.name) !== undefined
+
     return (
-        <div className="player">
+        <button className="player" onClick={clickCallback} disabled={scored}>
             {player.name} ({player.score})
-        </div>
+        </button>
     )
 }
 
@@ -81,22 +95,9 @@ const Players = () => {
 }
 
 const Game = () => {
-    const game = useSelector(state => state.game)
-
-    const shortWait = 1000
-    const longWait = 3000
-
-    const [waitTime, setWaitTime] = useState(longWait)
-
     return (
         <div className="page game">
-            <RoundInfo 
-                topic={game.topics[game.currentRound]} 
-                waitTime={waitTime}
-                round={game.currentRound + 1}
-                totalRounds={game.totalRounds}
-            />
-
+            <RoundInfo />
             <Players />
         </div>
     )

@@ -26,13 +26,15 @@ export const gameSlice = createSlice({
         waitDuration: longWait,
 
         scoreAddition: 1,
+        scoredPlayers: []
     },
     reducers: {
         nextTopic: state => {
-            state.currentTopic += 1
+            state.currentRound += 1
             state.scoreAddition = 1
             state.currentLetter = "-"
             state.waitDuration = longWait
+            state.scoredPlayers = []
         },
         requestNewLetter: state => {
             state.previousLetter = state.currentLetter
@@ -45,10 +47,13 @@ export const gameSlice = createSlice({
                 state.currentLetter = chooseRandomLetter()
             }
             while (state.currentLetter === state.previousLetter)
+        },
+        markPlayerAsScored: (state, action) => {
+            state.scoredPlayers.push(action.payload)
         }
     }
 })
 
-export const { nextTopic, requestNewLetter, revealNewLetter } = gameSlice.actions
+export const { nextTopic, requestNewLetter, revealNewLetter, markPlayerAsScored } = gameSlice.actions
 
 export default gameSlice.reducer
