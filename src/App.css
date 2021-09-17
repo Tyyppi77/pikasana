@@ -31,6 +31,7 @@
     font-size: 4em;
     margin: 0;
     padding: 0.5em;
+    font-weight: bold;
 }
 
 .page header {
@@ -93,6 +94,11 @@ button {
     border: 2px solid rgba(0, 0, 0, 0.041);
 }
 
+::placeholder {
+    color: white;
+    opacity: 0.2;
+}
+
 .players {
     font-size: 0.25em;
     width: 80%;
@@ -105,6 +111,10 @@ button {
 
 .players header {
     margin-bottom: 0.5em;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: left;
 }
 
 .players h1 {
@@ -131,8 +141,15 @@ button {
 }
 
 .players .players-grid .player {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     background: white;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

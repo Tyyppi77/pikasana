@@ -1,25 +1,43 @@
 import React from 'react';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { addPlayer, removePlayer } from "./playersSlice"
+
+import useField from './useField'
 
 const Player = ({ name }) => {
     return (
-        <div className="player" id={name}>
-            <p>{name}</p>
+        <div className="player" id={name} key={name}>
+            {name}
         </div>
     )
 }
 
 const Launch = () => {
+    const players = useSelector(state => state.players)
+    const dispatch = useDispatch()
+
+    const addPlayerCallback = (event) => {
+        event.preventDefault()
+        const name = playerName.value
+        if (playerName.value.length > 0 && players.find(player => player.name === name) === undefined) {
+            dispatch(addPlayer(name))
+            resetPlayerName()
+        }
+    }
+
+    const [playerName, resetPlayerName] = useField("text", () => {})
+
     return (
         <div className="page">
             <header>
                 <h1>Pikasana</h1>
-                <button type="button" className="highlight">Aloita</button>
+                <button type="button" className={ players.length > 1 ? "highlight" : ""}>Aloita</button>
             </header>
-            <div className="input-group">
-                <label for="peas">Lisää pelaaja:</label>
-                <input type="text" placeholder="Pelaaja 1" name="player" id="player"></input>
-            </div>
+            <form className="input-group" onSubmit={addPlayerCallback}>
+                <label>Lisää pelaaja:</label>
+                <input placeholder="Pelaaja 1" name="player" id="player" {...playerName}></input>
+            </form>
 
             <div className="players">
                 <header>
@@ -27,13 +45,7 @@ const Launch = () => {
                     <h3>Poista napauttamalla</h3>
                 </header>
                 <div className="players-grid">
-                    <Player name="Pelaaja 1 Pitkänimi" />
-                    <Player name="Pelaaja 2" />
-                    <Player name="Pelaaja 3" />
-                    <Player name="Pelaaja 4" />
-                    <Player name="Pelaaja 5" />
-                    <Player name="Pelaaja 6" />
-                    <Player name="Pelaaja 7" />
+                    { players.map(player => <Player name={player.name} />) }
                 </div>
             </div>
         </div>
