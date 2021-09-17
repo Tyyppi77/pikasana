@@ -29,7 +29,8 @@
     text-shadow: 0px 2px rgba(0, 0, 0, 0.1);
     font-size: 4em;
     margin: 0;
-    padding: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     font-weight: bold;
 }
 
@@ -85,7 +86,7 @@ button:active {
 .input-group {
     display: flex;
     flex-direction: column;
-    width: 70vw;
+    width: 70%;
     margin: 0 auto;
     padding: 2em;
 }
@@ -122,7 +123,7 @@ button:active {
 }
 
 .launch .players header {
-    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
     display: flex;
     justify-content: left;
     flex-direction: column;
@@ -172,14 +173,17 @@ button:active {
 }
 
 .round-info {
-    min-width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-content: space-around;
-    justify-content: space-around;
+    align-content: space-between;
+    justify-content: space-between;
+
+    align-self: flex-end;
 
     flex: 1em;
+    margin-top: auto;
 }
 
 .round-info .topic-parent {
@@ -221,7 +225,8 @@ button:active {
     grid-column-gap: 5px;
     justify-items: center;
 
-    min-width: 100vw;
+    width: 100%;
+    max-width: 100%;
 
     padding-bottom: 0.5em;
 }
@@ -240,6 +245,17 @@ button:active {
 
 .round-bottom button:nth-child(1) {
     grid-column-start: 2;
+}
+
+@media (orientation: landscape) {
+    .round-bottom {
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+
+    .round-bottom button {
+        border-radius: 10px;
+    }
 }
 
 .new-topic {
