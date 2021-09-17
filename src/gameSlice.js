@@ -11,24 +11,44 @@ export const chooseRandomLetter = (options) => {
     return alphabet[Math.floor(Math.random() * alphabet.length)]
 }
 
+const longWait = 3
+const shortWait = 1
+
 export const gameSlice = createSlice({
     name: "game",
     initialState: {
         topics: arrayShuffle(topics).slice(0, totalRounds),
         currentRound: 0,
-        currentLetter: chooseRandomLetter(),
         totalRounds,
+
+        currentLetter: "-",
+        previousLetter: "",
+        waitDuration: longWait,
+
         scoreAddition: 1,
     },
     reducers: {
         nextTopic: state => {
             state.currentTopic += 1
             state.scoreAddition = 1
-            state.currentLetter = chooseRandomLetter()
+            state.currentLetter = "-"
+            state.waitDuration = longWait
+        },
+        requestNewLetter: state => {
+            state.previousLetter = state.currentLetter
+            state.currentLetter = "-"
+            state.waitDuration = shortWait
+            state.scoreAddition += 1
+        },
+        revealNewLetter: state => {
+            do {
+                state.currentLetter = chooseRandomLetter()
+            }
+            while (state.currentLetter === state.previousLetter)
         }
     }
 })
 
-export const { nextTopic } = gameSlice.actions
+export const { nextTopic, requestNewLetter, revealNewLetter } = gameSlice.actions
 
 export default gameSlice.reducer

@@ -1,29 +1,23 @@
 import React, { useState, useEffect, } from "react";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { nextTopic, requestNewLetter, revealNewLetter } from "./gameSlice"
 
 import { useSelector, useDispatch } from 'react-redux'
 
-const RoundInfo = ({ letter, topic, waitTime, round, totalRounds }) => {
-    const [display, setDisplay] = useState('-')
-  
-    const [currentWaitStart, setCurrentWaitStart] = useState(new Date())
-    const [progress, setProgress] = useState(waitTime)
-  
-    useEffect(() => {
-        setDisplay('-')
-        setCurrentWaitStart(new Date())
-        setTimeout(() => {
-            setDisplay(letter)
-        }, waitTime)
-    }, [letter])
-  
-    useEffect(() => {
-        setTimeout(() => {
-            const now = new Date()
-            const elapsed = now.getTime() - currentWaitStart.getTime()
-            const progress = elapsed / waitTime;
-            setProgress((1.0 - progress) * waitTime)
-        }, 1)
-    })
+const RoundInfo = ({ topic, round, totalRounds }) => {
+    const game = useSelector(state => state.game)
+
+    const dispatch = useDispatch()
+
+    const revealLetter = () => {
+        dispatch(revealNewLetter())
+    }
+
+    const nextLetterCallback = () => {
+        dispatch(requestNewLetter())
+    }
+
+    const counting = game.currentLetter === '-'
   
     return (
         <div className="round-info">
@@ -31,8 +25,33 @@ const RoundInfo = ({ letter, topic, waitTime, round, totalRounds }) => {
                 <h5 className="topic-title">Aihe ({round}/{totalRounds}):</h5>
                 <h3 className="topic">{topic}</h3>
             </span>
-            <h1 className={`letter ${display === "-" ? "" : "bounce"}`}>{display}</h1>
-            <progress value={progress} max={waitTime}> 32% </progress>
+            <div className="letter-wrapper">
+                {
+                    counting
+                    ? (
+                        <CountdownCircleTimer
+                            isPlaying={true}
+                            duration={game.waitDuration}
+                            size={400}
+                            strokeWidth={30}
+                            colors={[
+                                ['#ffffff', 1.0],
+                            ]}
+                            trailColor="rgba(0, 0, 0, 0.1)"
+                            onComplete={revealLetter}
+                        >
+                            {({ remainingTime }) => remainingTime}
+                        </CountdownCircleTimer>
+                    )
+                    : <h1 className={`letter ${counting ? "" : "bounce"}`}>{game.currentLetter}</h1>
+                }
+            </div>
+
+            
+
+            <span className="round-bottom">
+                <button type="button" onClick={nextLetterCallback} disabled={counting}>Uusi kirjain</button>
+            </span>
         </div>
     );
 };
@@ -72,7 +91,6 @@ const Game = () => {
     return (
         <div className="page game">
             <RoundInfo 
-                letter={game.currentLetter} 
                 topic={game.topics[game.currentRound]} 
                 waitTime={waitTime}
                 round={game.currentRound + 1}
