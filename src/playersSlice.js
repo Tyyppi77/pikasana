@@ -8,7 +8,7 @@ export const playersSlice = createSlice({
             state.push({ name: action.payload, score: 0 })
         },
         removePlayer: (state, action) => {
-            state = state.filter(player => player.name !== action.payload)
+            return state.filter(player => player.name !== action.payload)
         }
     }
 })

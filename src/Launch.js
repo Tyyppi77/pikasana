@@ -6,10 +6,16 @@ import { addPlayer, removePlayer } from "./playersSlice"
 import useField from './useField'
 
 const Player = ({ name }) => {
+    const dispatch = useDispatch()
+
+    const onClick = () => {
+        dispatch(removePlayer(name))
+    }
+
     return (
-        <div className="player" id={name} key={name}>
+        <button className="player" onClick={onClick}>
             {name}
-        </div>
+        </button>
     )
 }
 
@@ -45,7 +51,7 @@ const Launch = () => {
                     <h3>Poista napauttamalla</h3>
                 </header>
                 <div className="players-grid">
-                    { players.map(player => <Player name={player.name} />) }
+                    { players.map(player => <Player key={player.name} name={player.name} />) }
                 </div>
             </div>
         </div>
