@@ -4,7 +4,7 @@ import arrayShuffle from "array-shuffle";
 
 import topics from "./topics.json"
 
-const totalRounds = 3
+const totalRounds = 25
 
 export const chooseRandomLetter = (options) => {
     const alphabet = "aaabcdeefghhiijjkkklllmmnnnnoopprrsssttuuvvwyäö"
