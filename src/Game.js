@@ -45,8 +45,8 @@ const RoundInfo = () => {
                         <CountdownCircleTimer
                             isPlaying={true}
                             duration={game.waitDuration}
-                            size={400}
-                            strokeWidth={30}
+                            size={300}
+                            strokeWidth={20}
                             colors={[
                                 ['#ffffff', 1.0],
                             ]}
