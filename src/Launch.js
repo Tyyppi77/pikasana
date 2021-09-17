@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { addPlayer, removePlayer } from "./playersSlice"
+import { useHistory } from 'react-router';
 
 import useField from './useField'
 
@@ -22,6 +23,7 @@ const Player = ({ name }) => {
 const Launch = () => {
     const players = useSelector(state => state.players)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const addPlayerCallback = (event) => {
         event.preventDefault()
@@ -32,13 +34,17 @@ const Launch = () => {
         }
     }
 
+    const startGame = () => {
+        history.push("/game")
+    }
+
     const [playerName, resetPlayerName] = useField("text", () => {})
 
     return (
-        <div className="page">
+        <div className="page launch">
             <header>
                 <h1>Pikasana</h1>
-                <button type="button" className={ players.length > 1 ? "highlight" : ""}>Aloita</button>
+                <button type="button" className={ players.length > 1 ? "highlight" : ""} onClick={startGame}>Aloita</button>
             </header>
             <form className="input-group" onSubmit={addPlayerCallback}>
                 <label>Lisää pelaaja:</label>
