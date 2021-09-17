@@ -9,19 +9,19 @@ export const playersSlice = createSlice({
         },
         {
             name: "Player 2",
-            score: 0
+            score: 3
         },
         {
             name: "Player 3 adsadsadsadsads",
-            score: 0
+            score: 2
         },
         {
             name: "Player 4",
-            score: 0
+            score: 7
         },
         {
             name: "Player 5",
-            score: 0
+            score: 10
         },
         {
             name: "Player 6 asdsad",
@@ -48,10 +48,13 @@ export const playersSlice = createSlice({
         },
         awardScore: (state, action) => {
             return state.map(player => player.name === action.payload.name ? { ...player, score: player.score + action.payload.addition} : player)
+        },
+        clearScores: state => {
+            return state.map(player => ({...player, score: 0}))
         }
     }
 })
 
-export const { addPlayer, removePlayer, awardScore } = playersSlice.actions
+export const { addPlayer, removePlayer, awardScore, clearScores } = playersSlice.actions
 
 export default playersSlice.reducer

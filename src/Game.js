@@ -4,9 +4,11 @@ import { nextTopic, requestNewLetter, revealNewLetter, markPlayerAsScored } from
 import { awardScore } from "./playersSlice"
 
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from "react-router";
 
 const RoundInfo = () => {
     const game = useSelector(state => state.game)
+    const history = useHistory()
 
     const dispatch = useDispatch()
 
@@ -18,11 +20,17 @@ const RoundInfo = () => {
         dispatch(requestNewLetter())
     }
 
-    const nextTopicCallback = () => {
-        dispatch(nextTopic())
-    }
-
     const counting = game.currentLetter === '-'
+
+    const isFinalRound = game.currentRound === game.totalRounds - 1
+    const continueText = isFinalRound ? "Lopeta" : "Uusi aihe"
+
+    const continueCallback = () => {
+        if (isFinalRound)
+            history.push("/results")
+        else
+            dispatch(nextTopic())
+    }
   
     return (
         <div className="round-info">
@@ -54,7 +62,7 @@ const RoundInfo = () => {
 
             <span className="round-bottom">
                 <button type="button" onClick={nextLetterCallback} disabled={counting || game.scoredPlayers.length > 0} className="link-button">Uusi kirjain</button>
-                <button type="button" onClick={nextTopicCallback} disabled={counting} className="new-topic">Uusi aihe</button>
+                <button type="button" onClick={continueCallback} disabled={counting} className="new-topic">{continueText}</button>
             </span>
         </div>
     );

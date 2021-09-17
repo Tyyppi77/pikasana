@@ -4,7 +4,7 @@ import arrayShuffle from "array-shuffle";
 
 import topics from "./topics.json"
 
-const totalRounds = 40
+const totalRounds = 3
 
 export const chooseRandomLetter = (options) => {
     const alphabet = "aaabcdeefghhiijjkkklllmmnnnnoopprrsssttuuvvwyäö"
@@ -14,9 +14,8 @@ export const chooseRandomLetter = (options) => {
 const longWait = 3
 const shortWait = 1
 
-export const gameSlice = createSlice({
-    name: "game",
-    initialState: {
+const initialState = () => {
+    return {
         topics: arrayShuffle(topics).slice(0, totalRounds),
         currentRound: 0,
         totalRounds,
@@ -27,7 +26,12 @@ export const gameSlice = createSlice({
 
         scoreAddition: 1,
         scoredPlayers: []
-    },
+    }
+}
+
+export const gameSlice = createSlice({
+    name: "game",
+    initialState: initialState(),
     reducers: {
         nextTopic: state => {
             state.currentRound += 1
@@ -50,10 +54,13 @@ export const gameSlice = createSlice({
         },
         markPlayerAsScored: (state, action) => {
             state.scoredPlayers.push(action.payload)
+        },
+        resetGame: state => {
+            return initialState()
         }
     }
 })
 
-export const { nextTopic, requestNewLetter, revealNewLetter, markPlayerAsScored } = gameSlice.actions
+export const { nextTopic, requestNewLetter, revealNewLetter, markPlayerAsScored, resetGame } = gameSlice.actions
 
 export default gameSlice.reducer

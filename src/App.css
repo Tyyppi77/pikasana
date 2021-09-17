@@ -293,3 +293,32 @@ button:active {
     margin-bottom: 0.5em;
     opacity: 0.8;
 }
+
+.results h2 {
+    font-size: 1.25em;
+}
+
+.results ol {
+    padding: 2em;
+    list-style-type: decimal;
+    opacity: 0.9;
+}
+
+.results ol li {
+    margin: 0.1em; 
+}
+
+.results .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.results .actions button {
+    font-size: 0.8em;
+    min-width: 30vw;
+    align-self: center;
+}

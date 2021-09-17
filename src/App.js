@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Game from './Game';
 import Launch from './Launch';
+import Results from './Results';
 
 function App() {
     return (
@@ -11,8 +12,8 @@ function App() {
                 <Route path="/game">
                     <Game />
                 </Route>
-                <Route path="/over">
-
+                <Route path="/results">
+                    <Results />
                 </Route>
                 <Route path="/">
                     <Launch />
