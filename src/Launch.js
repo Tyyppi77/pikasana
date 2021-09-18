@@ -42,19 +42,20 @@ const Launch = () => {
 
     return (
         <div className="page launch">
-            <header>
-                <h1>Pikasana</h1>
-                <button type="button" className={ players.length > 1 ? "highlight" : ""} onClick={startGame}>Aloita</button>
+            <header className="title">
+                <h1 className="title-bounce">Pikasana</h1>
+                <button type="button" onClick={startGame} disabled={players.length < 2}>Aloita</button>
             </header>
-            <form className="input-group" onSubmit={addPlayerCallback}>
-                <label>Lisää pelaaja:</label>
-                <input placeholder="Pelaaja 1" name="player" id="player" {...playerName}></input>
-            </form>
-
             <div className="players">
                 <header>
-                    <h1>Pelaajat:</h1>
-                    <h3>Poista napauttamalla</h3>
+                    <form className="input-group" onSubmit={addPlayerCallback}>
+                        <input placeholder="Lisää pelaaja" name="player" id="player" {...playerName}></input>
+                    </form>
+
+                    <span className="title-line">
+                        <h1>Pelaajat ({players.length}):</h1>
+                        <h3>Poista napauttamalla</h3>
+                    </span>
                 </header>
                 <div className="players-grid">
                     { players.map(player => <Player key={player.name} name={player.name} />) }

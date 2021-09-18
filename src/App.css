@@ -26,7 +26,7 @@
 }
 
 .page h1 {
-    text-shadow: 0px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 0px 0.05em rgba(0, 0, 0, 0.1);
     font-size: 4em;
     margin: 0;
     padding-top: 0.5em;
@@ -39,6 +39,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    margin: 0.5em;
+}
+
+.page .title {
+    margin-bottom: 2em;
 }
 
 button {
@@ -51,7 +57,7 @@ button {
     border-radius: 10px;
     font-weight: bold;
     min-width: 40vw;
-    box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0.25em #b14400;
     transition: all 0.25s;
     transform: scale(1.0);
 }
@@ -86,58 +92,64 @@ button:active {
 .input-group {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
-    padding: 2em;
-}
 
-.input-group label {
-    font-size: 0.75em;
-    opacity: 0.75;
-    padding-bottom: 0.25em;
+    padding-bottom: 0.4em;
+
+    border-bottom: solid 2px rgba(0, 0, 0, 0.1);
+
+    margin-bottom: 0.4em;
 }
 
 .input-group input {
-    background: #3f4db9;
+    background: rgba(0, 0, 0, 0.2);
     border: none;
     font-size: 1em;
     color: white;
-    border-radius: 10px;
-    padding: 0.25em;
-    border: 2px solid rgba(0, 0, 0, 0.041);
+    border-radius: 0.2em;
+    padding: 0.4em;
 }
 
 ::placeholder {
     color: white;
-    opacity: 0.2;
+    opacity: 0.4;
+    font-family: 'Rubik', sans-serif;
 }
 
 .players {
     font-size: 0.25em;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
-    padding: 1em;
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-size: 1em;
 }
 
+.launch .players {
+    background: rgba(0, 0, 0, 0.4);
+}
+
 .launch .players header {
-    padding-bottom: 0.5em;
     display: flex;
     justify-content: left;
     flex-direction: column;
     align-items: left;
 }
 
+.launch .players .title-line {
+    align-self: flex-start;
+}
+
 .launch .players h1 {
     padding: 0;
     margin: 0;
     font-size: 1.5em;
+    margin-bottom: 0.1em;
 }
 
 .launch .players h3 {
-    font-size: 0.5em;
+    font-size: 0.8em;
     padding: 0;
     margin: 0;
     opacity: 0.5;
@@ -147,29 +159,27 @@ button:active {
 .players-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
 
     color: #576cf5;
     font-size: 0.75em;
+
+    margin: 0.2em;
 }
 
 .player {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     background: white;
-    border-radius: 10px;
+    border-radius: 0.3em;
     text-align: center;
     box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
     min-width: 0;
     overflow: hidden;
-    font-weight: normal !important;
-    font-size: 0.8em;
-
     font-weight: bold;
+    font-size: 0.9em;
+    font-weight: normal;
     margin: 10px;
-    height: 8vh;
-    flex: 0 0 calc(25% - 20px);
+    height: 2.5em;
+    flex: 0 0 calc(33% - 20px);
 }
 
 .round-info {
@@ -188,7 +198,8 @@ button:active {
 
 .round-info .topic-parent {
     text-align: center;
-    padding: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .round-info .topic-title {
@@ -198,7 +209,7 @@ button:active {
 }
 
 .round-info .topic {
-    font-size: 2.0em;
+    font-size: 1.5em;
 }
 
 .round-info .letter-wrapper {
@@ -260,7 +271,7 @@ button:active {
 
 .new-topic {
     margin-left: auto;
-    font-size: 0.7em;
+    font-size: 1em;
     width: auto;
     min-width: 0;
     padding-left: 1em;
@@ -282,7 +293,7 @@ button:active {
         transform: scale(1.0);
     }
     50% {
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
     100% {
         transform: scale(1.0);
@@ -293,12 +304,12 @@ button:active {
 }
 
 .game .players {
-    background-color: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
 
     padding: 0;
     padding-bottom: 1em;
 
-    width: 100%;
+    width: 95%;
     margin: auto auto;
 }
 
@@ -335,4 +346,8 @@ button:active {
     font-size: 0.8em;
     min-width: 30vw;
     align-self: center;
+}
+
+.title-bounce {
+    animation: scale 3s infinite;
 }
