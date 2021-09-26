@@ -7,7 +7,7 @@ import Results from './Results';
 
 function App() {
     return (
-        <Router>
+        <Router basename="/pikasana">
             <Switch>
                 <Route path="/game">
                     <Game />
