@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/pikasana/static/css/main.3801a019.chunk.css",
-    "main.js": "/pikasana/static/js/main.f50a3e57.chunk.js",
-    "main.js.map": "/pikasana/static/js/main.f50a3e57.chunk.js.map",
+    "main.js": "/pikasana/static/js/main.abd8d9f2.chunk.js",
+    "main.js.map": "/pikasana/static/js/main.abd8d9f2.chunk.js.map",
     "runtime-main.js": "/pikasana/static/js/runtime-main.18e448b2.js",
     "runtime-main.js.map": "/pikasana/static/js/runtime-main.18e448b2.js.map",
     "static/js/2.237f1cd6.chunk.js": "/pikasana/static/js/2.237f1cd6.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.18e448b2.js",
     "static/js/2.237f1cd6.chunk.js",
     "static/css/main.3801a019.chunk.css",
-    "static/js/main.f50a3e57.chunk.js"
+    "static/js/main.abd8d9f2.chunk.js"
   ]
 }
